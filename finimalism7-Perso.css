@@ -1,191 +1,228 @@
-/* Variables globales */
+/* ===== Système de Design ===== */
 :root {
-    --accent: 6, 161, 217;
-    --selection: 170, 95, 200;
-    --rounding: 12px;
-    --font-scale: clamp(1rem, 0.75vw + 0.85rem, 1.25rem);
-    --space-unit: 0.5rem;
-    --transition-fast: 0.2s;
-    --transition-medium: 0.3s;
-    --shadow-elevation: 0 4px 12px rgba(0, 0, 0, 0.25);
+  /* Couleurs */
+  --accent: 6, 161, 217;
+  --accent-gradient: linear-gradient(135deg, 
+    rgba(var(--accent), 0.8), 
+    rgba(168, 6, 217, 0.6));
+  --background-base: rgba(15, 3, 31, 0.95);
+  --text-primary: rgba(255, 255, 255, 0.92);
+  --text-secondary: rgba(255, 255, 255, 0.78);
+
+  /* Espacements */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Bordures */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+/* ===== Réinitialisation Contrôlé ===== */
+.jf-container:not(.customized),
+.jf-component:not(.customized) {
+  all: initial; /* Préserve le comportement natif */
+}
+
+/* ===== Layout Principal ===== */
+.mainAnimatedPages {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "content";
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  background: var(--background-base);
+}
+
+/* En-tête Amélioré */
+.skinHeader {
+  grid-area: header;
+  background: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0.9), 
+    rgba(0, 0, 0, 0.5)
+  );
+  backdrop-filter: blur(10px);
+  padding: var(--space-md);
+}
+
+/* Contenu Principal Adaptatif */
+.pageContent {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+  padding: var(--space-md);
+  overflow-y: auto;
+}
+
+/* ===== Cartes Média ===== */
+.mediaCard {
+  position: relative;
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-fast), 
+              box-shadow var(--transition-medium);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
-  
-  /* Reset et base */
-  html {
-    font-family: "Sofia Sans", sans-serif;
-    font-size: var(--font-scale);
-    color: rgba(255, 255, 255, 0.87);
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    background: #0f031f;
-    -webkit-font-smoothing: antialiased;
-  }
-  
-  /* Layouts responsives */
-  .layout-desktop, .layout-tv, .layout-mobile {
-    --responsive-padding: max(2vw, 1rem);
-    
-    .itemsContainer {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: var(--space-unit);
-      padding: var(--responsive-padding);
-    }
-  }
-  
-  @media (orientation: portrait) {
-    .layout-mobile {
-      .itemsContainer {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  }
-  
-  /* Cartes améliorées */
-  .card {
-    background: rgba(4, 4, 4, 0.8);
-    border-radius: var(--rounding);
-    transition: transform var(--transition-fast) ease-in-out;
-    
-    &:hover {
-      transform: scale(1.02);
-      box-shadow: var(--shadow-elevation);
-    }
-  }
-  
-  /* En-têtes */
-  .headerTop {
-    padding: var(--space-unit);
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(15px);
-  }
-  
-  /* Accessibilité améliorée */
-  button, a {
-    &:focus-visible {
-      outline: 2px solid rgba(var(--accent), 0.8);
-      outline-offset: 2px;
-    }
-  }
-  
-  .progress {
-    &::-webkit-progress-value {
-      background: rgba(var(--accent), 0.75);
-    }
-  }
-  
-  /* Transitions optimisées */
-  .textActionButton {
-    transition: 
-      color var(--transition-fast),
-      font-weight var(--transition-medium);
-  }
-  
-  /* Arrière-plans dynamiques */
-  .itemBackdrop::after {
-    background: linear-gradient(180deg, 
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.3) 50%,
-      rgba(0, 0, 0, 0.6) 100%
-    );
-  }
-  
-  /* Formulaire accessible */
-  .emby-input, .emby-select {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    transition: background var(--transition-fast);
-    
-    &:focus {
-      background: rgba(0, 0, 0, 0.4);
-    }
-  }
-  
-  /* Animation performante */
-  @keyframes pulse {
-    0%, 100% { transform: scale(0.95); opacity: 0.8; }
-    50% { transform: scale(1); opacity: 1; }
-  }
-  
-  /* Navigation principale */
-  .mainDrawer {
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(15px);
-    
-    .navMenuOption {
-      border-radius: var(--rounding);
-      transition: background var(--transition-fast);
-      
-      &:hover {
-        background: rgba(255, 255, 255, 0.1);
-      }
-    }
-  }
-  
-  /* Médias responsives */
-  .cardImage {
+
+  &-image {
     aspect-ratio: 2/3;
-    width: 100%;
-    height: auto;
     object-fit: cover;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   }
-  
-  /* Améliorations mobiles */
-  @media (hover: none) and (pointer: coarse) {
-    .listItem {
-      min-height: 44px;
-      padding: var(--space-unit);
-    }
+
+  &-info {
+    padding: var(--space-sm);
   }
-  
-  /* Performance des effets visuels */
-  .blurhash-canvas {
-    filter: opacity(60%) saturate(60%);
-    will-change: filter;
-  }
-  
-  /* Système de couleurs */
-  .countIndicator {
-    background: linear-gradient(90deg, 
-      hsl(270, 85%, 25%) 0%,
-      hsl(220, 85%, 45%) 100%
+}
+
+/* ===== Lecteur Vidéo ===== */
+.videoPlayerContainer {
+  position: relative;
+  background: #000;
+
+  .videoOsdBottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+      to top, 
+      rgba(0, 0, 0, 0.9), 
+      rgba(0, 0, 0, 0.5)
     );
+    padding: var(--space-md);
   }
-  
-  /* Compatibilité navigateur */
-  @supports (backdrop-filter: blur(15px)) {
-    .dialog, .toast {
-      backdrop-filter: blur(15px);
-    }
-  }
-  
-  /* Version compacte des styles existants */
-  .detailPagePrimaryContainer::before,
-  .pageTabContent.is-active::before {
-    background: url(https://i.imgur.com/dGBenC7.jpeg) center/cover fixed;
-    opacity: 0.85;
-  }
-  
-  .headerTabs .emby-tab-button {
-    width: clamp(120px, 15vw, 160px);
-  }
-  
-  .raised, .fab {
-    background: rgba(4, 4, 4, 0.8);
-    transition: all var(--transition-fast);
-    
+
+  .playbackButton {
+    width: 48px;
+    height: 48px;
+    margin: 0 var(--space-sm);
+    transition: transform var(--transition-fast);
+
     &:hover {
-      background: linear-gradient(90deg,
-        rgba(168, 6, 217, 0.3),
-        rgba(var(--accent), 0.6)
-      );
+      transform: scale(1.1);
     }
   }
-  
-  ::-webkit-scrollbar-thumb {
-    background: rgba(var(--accent), 0.8);
-    border-radius: var(--rounding);
+}
+
+/* ===== Navigation ===== */
+.mainDrawer {
+  width: 240px;
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(15px);
+  transform: translateX(0) !important; /* Force la visibilité */
+
+  &-navItem {
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-fast);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
   }
-  
+}
+
+/* ===== Formulaire et Paramètres ===== */
+.settingsForm {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+
+  &-group {
+    margin-bottom: var(--space-lg);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  label {
+    display: block;
+    margin-bottom: var(--space-xs);
+    color: var(--text-secondary);
+  }
+
+  input, select {
+    width: 100%;
+    padding: var(--space-sm);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+  }
+}
+
+/* ===== Accessibilité ===== */
+@media (prefers-reduced-motion) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid rgba(var(--accent), 0.8);
+  outline-offset: 2px;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .pageContent {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mainDrawer {
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContent {
+    grid-template-columns: 1fr;
+  }
+
+  .mediaCard {
+    margin-bottom: var(--space-sm);
+  }
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.initialSetup {
+  animation: fadeIn 0.4s var(--transition-medium);
+}
+
+/* ===== Overrides Sécurisés ===== */
+/* Conserve les fonctionnalités natives de Jellyfin */
+#itemDetailPage,
+.libraryItemsContainer,
+.userViewParent {
+  position: relative !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.seriesScheduleSection,
+.episodeListContainer {
+  display: grid !important;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
