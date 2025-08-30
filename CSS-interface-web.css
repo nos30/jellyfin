@@ -1,13 +1,8 @@
 
 /***************************************************
-🎬 Thème Netflix-like pour Jellyfin
-Optimisé pour cartes, sections et détails
-Le thème gère couleurs & fond
+🎬 CSS Netflix-like pour Jellyfin
 @import url('https://cdn.jsdelivr.net/gh/nos30/jellyfin/CSS-interface-web.css');
 ****************************************************/
-
-/* ===== JELLYFIN NETFLIX THEME 2025 ===== */
-/* Thème complet inspiré de l'interface Netflix */
 
 /* --- Import des polices Netflix Sans --- */
 @import url('https://fonts.googleapis.com/css2?family=Netflix+Sans:wght@300;400;500;700&display=swap');
