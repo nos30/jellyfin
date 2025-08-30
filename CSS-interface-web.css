@@ -3,3 +3,466 @@
 🎬 CSS Jellyfin
 @import url('https://cdn.jsdelivr.net/gh/nos30/jellyfin/CSS-interface-web.css');
 ****************************************************/
+
+/* Variables Netflix officielles */
+:root {
+    --netflix-red: #E50914;
+    --netflix-dark-red: #B40710;
+    --netflix-black: #141414;
+    --netflix-dark-gray: #221f1f;
+    --netflix-medium-gray: #2F2F2F;
+    --netflix-light-gray: #B3B3B3;
+    --netflix-text: rgba(255, 255, 255, 0.87);
+    --netflix-secondary: rgba(255, 255, 255, 0.6);
+    --netflix-muted: rgba(255, 255, 255, 0.4);
+    --netflix-gradient: linear-gradient(135deg, #8E0E00 0%, #1F1C18 100%);
+    --netflix-hover-shadow: 0 8px 25px rgba(229, 9, 20, 0.3);
+    --netflix-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Scrollbars Netflix style */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--netflix-red) var(--netflix-dark-gray);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--netflix-dark-gray);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--netflix-red);
+    border-radius: 4px;
+    transition: var(--netflix-transition);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--netflix-dark-red);
+    box-shadow: 0 0 8px rgba(229, 9, 20, 0.5);
+}
+
+/* Base globale Netflix */
+.skinHeader,
+html {
+    color: var(--netflix-text);
+    background: var(--netflix-black);
+}
+
+/* Header Netflix avec gradient et blur */
+.skinHeader {
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0.9) 0%, transparent 100%) !important;
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(229, 9, 20, 0.1);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+.skinHeader.semiTransparent {
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0.8) 0%, transparent 100%) !important;
+    backdrop-filter: blur(20px);
+}
+
+.skinHeader-withBackground {
+    background: var(--netflix-gradient) !important;
+}
+
+/* Logo Netflix personnalisé */
+.pageTitleWithDefaultLogo {
+    background-image: url("https://i.ibb.co/JWYbjZ4z/jp.png") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    filter: drop-shadow(0 2px 8px rgba(229, 9, 20, 0.4));
+    transition: var(--netflix-transition);
+}
+
+.pageTitleWithDefaultLogo:hover {
+    filter: drop-shadow(0 4px 15px rgba(229, 9, 20, 0.6));
+    transform: scale(1.05);
+}
+
+/* Conteneurs principaux */
+.backgroundContainer,
+.dialog,
+.nowPlayingPlaylist,
+.nowPlayingContextMenu,
+html {
+    background-color: var(--netflix-black) !important;
+}
+
+.backgroundContainer.withBackdrop {
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(34, 31, 31, 0.9) 100%);
+}
+
+/* Boutons style Netflix avec animations */
+.paper-icon-button-light:hover:not(:disabled) {
+    color: var(--netflix-red) !important;
+    background: radial-gradient(circle, rgba(229, 9, 20, 0.2) 0%, rgba(229, 9, 20, 0.1) 70%) !important;
+    transform: scale(1.1);
+    box-shadow: var(--netflix-hover-shadow);
+    transition: var(--netflix-transition);
+}
+
+.paper-icon-button-light:active:not(:disabled) {
+    color: var(--netflix-dark-red) !important;
+    transform: scale(0.95);
+}
+
+/* Boutons principaux Netflix */
+.fab,
+.raised {
+    background: var(--netflix-gradient) !important;
+    color: var(--netflix-text) !important;
+    border: 1px solid rgba(229, 9, 20, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: var(--netflix-transition);
+}
+
+.fab:hover,
+.raised:hover {
+    background: linear-gradient(135deg, var(--netflix-red) 0%, var(--netflix-dark-red) 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: var(--netflix-hover-shadow);
+}
+
+.button-submit {
+    background: var(--netflix-red) !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: var(--netflix-transition);
+}
+
+.button-submit:hover {
+    background: var(--netflix-dark-red) !important;
+    transform: translateY(-1px);
+    box-shadow: var(--netflix-hover-shadow);
+}
+
+.button-delete {
+    background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%) !important;
+    color: var(--netflix-text) !important;
+    transition: var(--netflix-transition);
+}
+
+.button-delete:hover {
+    background: linear-gradient(135deg, #ff1744 0%, #c62828 100%) !important;
+    box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);
+}
+
+/* Cartes de contenu avec effet Netflix */
+.card {
+    background: var(--netflix-dark-gray) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: var(--netflix-transition);
+    position: relative;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--netflix-gradient);
+    opacity: 0;
+    transition: var(--netflix-transition);
+    z-index: -1;
+}
+
+.card:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: var(--netflix-hover-shadow);
+    border-color: var(--netflix-red);
+    z-index: 100;
+}
+
+.card:hover::before {
+    opacity: 0.1;
+}
+
+.card:focus .cardBox.visualCardBox,
+.card:focus .cardBox:not(.visualCardBox) .cardScalable {
+    border-color: var(--netflix-red) !important;
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.3) !important;
+}
+
+/* Conteneurs de sections */
+.collapseContent,
+.formDialogFooter:not(.formDialogFooter-clear),
+.formDialogHeader:not(.formDialogHeader-clear),
+.paperList,
+.visualCardBox {
+    background: var(--netflix-dark-gray) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Couleurs par défaut des cartes Netflix */
+.defaultCardBackground1 { background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%) !important; }
+.defaultCardBackground2 { background: linear-gradient(135deg, var(--netflix-red) 0%, var(--netflix-dark-red) 100%) !important; }
+.defaultCardBackground3 { background: linear-gradient(135deg, #00695c 0%, #00acc1 100%) !important; }
+.defaultCardBackground4 { background: linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%) !important; }
+.defaultCardBackground5 { background: linear-gradient(135deg, #bf360c 0%, #ff5722 100%) !important; }
+
+/* Textes secondaires */
+.cardText-secondary,
+.fieldDescription,
+.guide-programNameCaret,
+.listItem .secondary,
+.nowPlayingBarSecondaryText,
+.programSecondaryTitle,
+.secondaryText {
+    color: var(--netflix-secondary) !important;
+}
+
+/* Navigation latérale Netflix */
+.mainDrawer,
+.drawer-open {
+    background: var(--netflix-gradient) !important;
+    border-right: 2px solid var(--netflix-red);
+}
+
+.navMenuOption {
+    color: var(--netflix-secondary) !important;
+    transition: var(--netflix-transition);
+    border-radius: 6px;
+    margin: 4px 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.navMenuOption::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--netflix-red);
+    transform: translateX(-100%);
+    transition: var(--netflix-transition);
+}
+
+.navMenuOption:hover {
+    background: rgba(229, 9, 20, 0.15) !important;
+    color: var(--netflix-text) !important;
+    transform: translateX(5px);
+}
+
+.navMenuOption:hover::before {
+    transform: translateX(0);
+}
+
+.navMenuOption-selected {
+    background: var(--netflix-red) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+}
+
+.navMenuOption-selected::before {
+    transform: translateX(0);
+}
+
+/* Champs de saisie Netflix */
+.emby-input,
+.emby-textarea {
+    background: var(--netflix-medium-gray) !important;
+    border: 2px solid transparent !important;
+    border-radius: 6px !important;
+    color: var(--netflix-text) !important;
+    transition: var(--netflix-transition);
+}
+
+.emby-input:focus,
+.emby-textarea:focus {
+    border-color: var(--netflix-red) !important;
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.2) !important;
+    background: var(--netflix-dark-gray) !important;
+}
+
+/* Sélecteurs */
+.emby-select-withcolor {
+    background: var(--netflix-medium-gray) !important;
+    border: 2px solid transparent !important;
+    color: var(--netflix-text) !important;
+    border-radius: 6px;
+    transition: var(--netflix-transition);
+}
+
+.emby-select-withcolor:focus {
+    border-color: var(--netflix-red) !important;
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.2) !important;
+}
+
+.emby-select-withcolor > option {
+    background: var(--netflix-dark-gray) !important;
+    color: var(--netflix-text) !important;
+}
+
+/* Cases à cocher */
+.emby-checkbox:checked + span + .checkboxOutline {
+    background: var(--netflix-red) !important;
+    border-color: var(--netflix-red) !important;
+    box-shadow: 0 0 8px rgba(229, 9, 20, 0.5);
+}
+
+.emby-checkbox:focus + span + .checkboxOutline {
+    border-color: var(--netflix-red) !important;
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.2);
+}
+
+/* Barres de progression */
+.itemProgressBarForeground {
+    background: var(--netflix-gradient) !important;
+    box-shadow: 0 2px 8px rgba(229, 9, 20, 0.4);
+}
+
+/* Indicateurs */
+.countIndicator,
+.fullSyncIndicator,
+.mediaSourceIndicator,
+.playedIndicator {
+    background: var(--netflix-red) !important;
+    color: #fff !important;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(229, 9, 20, 0.4);
+}
+
+/* Onglets */
+.emby-tab-button {
+    color: var(--netflix-muted) !important;
+    transition: var(--netflix-transition);
+    position: relative;
+}
+
+.emby-tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--netflix-red);
+    transition: var(--netflix-transition);
+    transform: translateX(-50%);
+}
+
+.emby-tab-button-active,
+.emby-tab-button:hover {
+    color: var(--netflix-text) !important;
+}
+
+.emby-tab-button-active::after,
+.emby-tab-button:hover::after {
+    width: 100%;
+}
+
+.emby-tab-button.show-focus:focus {
+    color: var(--netflix-red) !important;
+    outline: 2px solid rgba(229, 9, 20, 0.5);
+    outline-offset: 2px;
+}
+
+/* Listes */
+.listItem:hover {
+    background: linear-gradient(90deg, rgba(229, 9, 20, 0.1) 0%, transparent 100%) !important;
+    border-left: 4px solid var(--netflix-red);
+    transform: translateX(5px);
+    transition: var(--netflix-transition);
+}
+
+.listItem:focus {
+    background: rgba(229, 9, 20, 0.15) !important;
+    border-left: 4px solid var(--netflix-red);
+}
+
+/* Guide TV */
+.guide-channelHeaderCell:focus,
+.programCell:focus {
+    background: var(--netflix-red) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+}
+
+.guide-date-tab-button.emby-tab-button-active,
+.guide-date-tab-button:focus {
+    color: var(--netflix-red) !important;
+    background: rgba(229, 9, 20, 0.1);
+}
+
+/* Boutons spéciaux */
+.buttonActive {
+    color: var(--netflix-red) !important;
+    background: rgba(229, 9, 20, 0.1) !important;
+    border-radius: 6px;
+}
+
+.button-flat:hover {
+    color: var(--netflix-red) !important;
+    background: rgba(229, 9, 20, 0.1) !important;
+    transform: translateY(-1px);
+    transition: var(--netflix-transition);
+}
+
+.button-link {
+    color: var(--netflix-red) !important;
+    transition: var(--netflix-transition);
+}
+
+.button-link:hover {
+    color: var(--netflix-dark-red) !important;
+    text-shadow: 0 0 8px rgba(229, 9, 20, 0.5);
+}
+
+/* Bouton flottant détails */
+.emby-button.detailFloatingButton {
+    background: var(--netflix-gradient) !important;
+    color: #fff !important;
+    border: none;
+    box-shadow: var(--netflix-hover-shadow);
+    transition: var(--netflix-transition);
+}
+
+.emby-button.detailFloatingButton:hover {
+    background: var(--netflix-red) !important;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 12px 30px rgba(229, 9, 20, 0.4);
+}
+
+/* Toasts et messages */
+.toast {
+    background: var(--netflix-gradient) !important;
+    color: var(--netflix-text) !important;
+    border: 1px solid rgba(229, 9, 20, 0.3);
+    border-radius: 8px;
+    box-shadow: var(--netflix-hover-shadow);
+}
+
+/* Animations personnalisées Netflix */
+@keyframes netflixGlow {
+    0%, 100% { box-shadow: 0 0 5px rgba(229, 9, 20, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(229, 9, 20, 0.8); }
+}
+
+.playedIndicator {
+    animation: netflixGlow 2s ease-in-out infinite;
+}
+
+/* Responsive optimizations */
+@media (max-width: 768px) {
+    .card:hover {
+        transform: scale(1.02) translateY(-2px);
+    }
+    
+    .navMenuOption:hover {
+        transform: none;
+    }
+}
