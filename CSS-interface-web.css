@@ -1,76 +1,16 @@
 
 /***************************************************
-🎬 Thème Netflix-like complet pour Jellyfin
-Compatible Light / Dark mode
-Optimisé pour sections, cartes, sidebar, détails film
+🎬 Thème Netflix-like pour Jellyfin
+Optimisé pour cartes, sections et détails
+Le thème gère couleurs & fond
 @import url('https://cdn.jsdelivr.net/gh/nos30/jellyfin/CSS-interface-web.css');
 ****************************************************/
-
-/* ---- VARIABLES DE THÈME ---- */
-.theme-dark {
-    --background-color: #141414 !important;
-    --text-color: #ffffff !important;
-    --primary-accent-color: #e50914 !important;
-    --secondary-accent-color: #b20710 !important;
-    --card-bg: #1a1a1a !important;
-    --header-bg: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.6)) !important;
-    --drawer-bg: #0d0d0d !important;
-}
-
-.theme-light {
-    --background-color: #f5f5f5 !important;
-    --text-color: #111111 !important;
-    --primary-accent-color: #e50914 !important;
-    --secondary-accent-color: #b20710 !important;
-    --card-bg: #ffffff !important;
-    --header-bg: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(245,245,245,0.85)) !important;
-    --drawer-bg: #ffffff !important;
-}
-
-/* ---- BACKGROUND GLOBAL ---- */
-body,
-.page,
-.dialog,
-.homePage {
-    background-color: var(--background-color) !important;
-    color: var(--text-color) !important;
-    font-family: "Helvetica Neue", Arial, sans-serif !important;
-}
-
-/* ---- HEADER ---- */
-.skinHeader {
-    background: var(--header-bg) !important;
-    border-bottom: none !important;
-    transition: background 0.3s ease;
-}
-.skinHeader a {
-    color: var(--text-color) !important;
-    font-weight: bold;
-    transition: color 0.2s ease;
-}
-.skinHeader a:hover {
-    color: var(--primary-accent-color) !important;
-}
-
-/* ---- MAIN DRAWER / SIDEBAR ---- */
-.mainDrawer {
-    background-color: var(--drawer-bg) !important;
-    color: var(--text-color) !important;
-}
-.mainDrawer a {
-    color: var(--text-color) !important;
-    transition: color 0.2s ease;
-}
-.mainDrawer a:hover {
-    color: var(--primary-accent-color) !important;
-}
 
 /* ---- SECTIONS (titres et marges) ---- */
 .sectionTitle {
     font-size: 1.8rem !important;
     font-weight: 700 !important;
     margin: 40px 0 20px 20px !important;
-    color: var(--text-color) !important;
     position: relative;
 }
 .sectionTitle::after {
@@ -78,7 +18,7 @@ body,
     display: block;
     width: 60px;
     height: 4px;
-    background-color: var(--primary-accent-color);
+    background-color: #e50914; /* Accent Netflix par défaut */
     margin-top: 6px;
     border-radius: 2px;
 }
@@ -88,9 +28,9 @@ body,
 .card.overflowBackdropCard {
     border-radius: 12px !important;
     overflow: hidden !important;
-    background-color: var(--card-bg) !important;
     box-shadow: 0 6px 16px rgba(0,0,0,0.3) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: inherit !important; /* laisse le thème gérer */
 }
 .card:hover {
     transform: scale(1.1);
@@ -112,38 +52,33 @@ body,
 
 /* ---- TEXTE SUR LES CARTES ---- */
 .cardText {
-    color: var(--text-color) !important;
     font-size: 0.9rem !important;
     text-align: center !important;
     margin-top: 5px !important;
     transition: color 0.2s ease;
 }
 .card:hover .cardText {
-    color: var(--primary-accent-color) !important;
+    color: #e50914 !important; /* accent hover */
 }
 
 /* ---- BOUTONS ---- */
 .button-flat,
 .button-submit {
-    background-color: var(--primary-accent-color) !important;
     border-radius: 25px !important;
     padding: 8px 20px !important;
-    color: #fff !important;
     font-weight: bold !important;
     transition: background 0.3s ease, transform 0.2s ease;
 }
 .button-flat:hover,
 .button-submit:hover {
-    background-color: var(--secondary-accent-color) !important;
     transform: scale(1.05);
 }
 
 /* ---- DÉTAIL FILM / SÉRIE ---- */
 .detailPagePrimaryContent {
-    background: linear-gradient(180deg, var(--background-color) 0%, rgba(20,20,20,0.85) 50%, var(--background-color) 100%) !important;
     padding: 20px !important;
     border-radius: 12px !important;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
 }
 .detailLogo,
 .detailImageContainer {
@@ -152,10 +87,10 @@ body,
 .detailPagePrimaryContent h1,
 .detailPagePrimaryContent h2,
 .detailPagePrimaryContent h3 {
-    color: var(--text-color) !important;
+    font-weight: bold !important;
 }
 
-/* ---- SCROLLBARS HIDDEN ---- */
+/* ---- CACHER LES SCROLLBARS ---- */
 ::-webkit-scrollbar {
     display: none;
 }
