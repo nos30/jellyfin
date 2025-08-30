@@ -3,7 +3,7 @@
  @import url('https://cdn.jsdelivr.net/gh/nos30/jellyfin/CSS-interface-web.css');
 ************************************************************************************/
 
-/* ---- STYLE DE BASE (reprend mon thème Netflix précédent) ---- */
+/* ---- STYLE DE BASE ---- */
 :root {
     --background-color: #141414 !important;
     --text-color: #ffffff !important;
@@ -187,4 +187,177 @@ body {
     visibility: visible;
     position: absolute;
     left: 0;
+}
+✅ Résultat :
+
+L’UI est style Netflix (déjà optimisée avec mon CSS précédent).
+
+Les titres des sections sont traduits visuellement en français.
+
+Pas besoin de modifier Jellyfin ou LibreTranslate pour ça.
+
+⚠️ Par contre, le sélecteur :has() et :contains() ne sont pas supportés par tous les navigateurs.
+👉 Tu veux que je t’adapte une version 100% compatible (avec data-id de Jellyfin au lieu de :contains()), ou on reste sur cette méthode visuelle rapide ?
+
+
+
+
+
+
+
+Vous avez dit :
+enlève les traductions, cela ne fonctionne pas et ameliore encore plus le design
+
+
+ChatGPT a dit :
+Parfait 👍 je vais te refaire un CSS full Netflix-like mais sans les traductions forcées.
+Le but : un affichage moderne, sombre, épuré et immersif, avec des effets visuels fluides et des sections qui respirent.
+
+css
+Copier le code
+/***************************************************
+ 🎬 Thème Netflix-like pour Jellyfin
+ Optimisé pour immersion & esthétique
+****************************************************/
+
+/* ---- COULEURS DE BASE ---- */
+:root {
+    --background-color: #141414 !important;
+    --text-color: #ffffff !important;
+    --primary-accent-color: #e50914 !important; /* Rouge Netflix */
+    --secondary-accent-color: #b20710 !important;
+}
+
+/* ---- BACKGROUND GLOBAL ---- */
+.homePage,
+.page,
+.dialog,
+body {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+    font-family: "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* ---- SECTIONS (titres et marges) ---- */
+.sectionTitle {
+    font-size: 1.8rem !important;
+    font-weight: bold !important;
+    margin: 30px 0 15px 15px !important;
+    color: #fff !important;
+    position: relative;
+}
+.sectionTitle::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-accent-color);
+    margin-top: 6px;
+    border-radius: 2px;
+}
+
+/* ---- CARTES (films/séries) ---- */
+.card.overflowPortraitCard,
+.card.overflowBackdropCard {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.6) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1a1a1a !important;
+}
+.card.overflowPortraitCard:hover,
+.card.overflowBackdropCard:hover {
+    transform: scale(1.15);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.9);
+    z-index: 10;
+}
+
+/* ---- IMAGE DES VIGNETTES ---- */
+.cardImageContainer {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+}
+.cardImageContainer img {
+    transition: transform 0.4s ease;
+}
+.card:hover .cardImageContainer img {
+    transform: scale(1.08);
+}
+
+/* ---- TEXTE SUR LES CARTES ---- */
+.cardText {
+    color: #ddd !important;
+    font-size: 0.9rem !important;
+    text-align: center !important;
+    margin-top: 5px !important;
+    transition: color 0.2s ease;
+}
+.card:hover .cardText {
+    color: var(--primary-accent-color) !important;
+}
+
+/* ---- HEADER (barre du haut) ---- */
+.skinHeader {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 100%) !important;
+    border-bottom: none !important;
+}
+.skinHeader a {
+    color: #fff !important;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+.skinHeader a:hover {
+    color: var(--primary-accent-color) !important;
+}
+
+/* ---- BOUTONS ---- */
+.button-flat,
+.button-submit {
+    background-color: var(--primary-accent-color) !important;
+    border-radius: 20px !important;
+    padding: 8px 16px !important;
+    color: #fff !important;
+    transition: background 0.3s ease;
+}
+.button-flat:hover,
+.button-submit:hover {
+    background-color: var(--secondary-accent-color) !important;
+}
+
+/* ---- CACHER LES SCROLLBARS ---- */
+::-webkit-scrollbar {
+    display: none;
+}
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* ---- DÉTAIL DES FILMS/SÉRIES ---- */
+.detailLogo,
+.detailImageContainer {
+    border-radius: 12px !important;
+}
+.detailPagePrimaryContent {
+    background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(20,20,20,0.85) 50%, rgba(20,20,20,0.95) 100%) !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+}
+.detailPagePrimaryContent h1,
+.detailPagePrimaryContent h2,
+.detailPagePrimaryContent h3 {
+    color: #fff !important;
+}
+
+/* ---- FOOTER / NAVIGATION ---- */
+.mainDrawer {
+    background: #0d0d0d !important;
+}
+.mainDrawer a {
+    color: #bbb !important;
+    transition: color 0.2s ease;
+}
+.mainDrawer a:hover {
+    color: var(--primary-accent-color) !important;
 }
