@@ -80,4 +80,86 @@ body,
     height: 4px;
     background-color: var(--primary-accent-color);
     margin-top: 6px;
-    b
+    border-radius: 2px;
+}
+
+/* ---- CARTES (films / séries) ---- */
+.card.overflowPortraitCard,
+.card.overflowBackdropCard {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background-color: var(--card-bg) !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+/* ---- IMAGE DES VIGNETTES ---- */
+.cardImageContainer {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
+.cardImageContainer img {
+    transition: transform 0.4s ease;
+}
+.card:hover .cardImageContainer img {
+    transform: scale(1.08);
+}
+
+/* ---- TEXTE SUR LES CARTES ---- */
+.cardText {
+    color: var(--text-color) !important;
+    font-size: 0.9rem !important;
+    text-align: center !important;
+    margin-top: 5px !important;
+    transition: color 0.2s ease;
+}
+.card:hover .cardText {
+    color: var(--primary-accent-color) !important;
+}
+
+/* ---- BOUTONS ---- */
+.button-flat,
+.button-submit {
+    background-color: var(--primary-accent-color) !important;
+    border-radius: 25px !important;
+    padding: 8px 20px !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.button-flat:hover,
+.button-submit:hover {
+    background-color: var(--secondary-accent-color) !important;
+    transform: scale(1.05);
+}
+
+/* ---- DÉTAIL FILM / SÉRIE ---- */
+.detailPagePrimaryContent {
+    background: linear-gradient(180deg, var(--background-color) 0%, rgba(20,20,20,0.85) 50%, var(--background-color) 100%) !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+}
+.detailLogo,
+.detailImageContainer {
+    border-radius: 12px !important;
+}
+.detailPagePrimaryContent h1,
+.detailPagePrimaryContent h2,
+.detailPagePrimaryContent h3 {
+    color: var(--text-color) !important;
+}
+
+/* ---- SCROLLBARS HIDDEN ---- */
+::-webkit-scrollbar {
+    display: none;
+}
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
