@@ -1,231 +1,18 @@
-/***********************************************************************************
- 🌌 Thème Netflix-like + Traduction FR forcée
- @import url('https://cdn.jsdelivr.net/gh/nos30/jellyfin/CSS-interface-web.css');
-************************************************************************************/
 
-/* ---- STYLE DE BASE ---- */
-:root {
-    --background-color: #141414 !important;
-    --text-color: #ffffff !important;
-    --primary-accent-color: #e50914 !important;
-    --link-color: #e50914 !important;
-}
-
-.homePage,
-.page,
-.dialog,
-body {
-    background-color: var(--background-color) !important;
-    color: var(--text-color) !important;
-}
-
-/* Vignettes style Netflix */
-.card.overflowPortraitCard,
-.card.overflowBackdropCard {
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.6) !important;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card.overflowPortraitCard:hover,
-.card.overflowBackdropCard:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.9);
-}
-
-/* Titres de sections Netflix */
-.sectionTitle {
-    font-size: 1.6rem !important;
-    font-weight: bold !important;
-    margin-left: 10px !important;
-    color: #fff !important;
-    border-left: 4px solid var(--primary-accent-color);
-    padding-left: 8px;
-}
-
-/* ---- TRADUCTIONS DES CATÉGORIES ---- */
-
-/* Continue Watching → Reprendre */
-.sectionTitle:has(span:contains("Continue Watching")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Continue Watching")) span::after {
-    content: "Reprendre";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Next Up → À suivre */
-.sectionTitle:has(span:contains("Next Up")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Next Up")) span::after {
-    content: "À suivre";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Recently Added Movies → Films ajoutés récemment */
-.sectionTitle:has(span:contains("Recently Added Movies")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Recently Added Movies")) span::after {
-    content: "Films ajoutés récemment";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Recently Added Shows → Séries ajoutées récemment */
-.sectionTitle:has(span:contains("Recently Added Shows")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Recently Added Shows")) span::after {
-    content: "Séries ajoutées récemment";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Latest Movies → Derniers films */
-.sectionTitle:has(span:contains("Latest Movies")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Latest Movies")) span::after {
-    content: "Derniers films";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Latest Shows → Dernières séries */
-.sectionTitle:has(span:contains("Latest Shows")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Latest Shows")) span::after {
-    content: "Dernières séries";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Because You Watched → Parce que vous avez regardé */
-.sectionTitle:has(span:contains("Because You Watched")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Because You Watched")) span::after {
-    content: "Parce que vous avez regardé";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* My List → Ma liste */
-.sectionTitle:has(span:contains("My List")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("My List")) span::after {
-    content: "Ma liste";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Watch It Again → À revoir */
-.sectionTitle:has(span:contains("Watch It Again")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Watch It Again")) span::after {
-    content: "À revoir";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Discover → Découvrir */
-.sectionTitle:has(span:contains("Discover")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Discover")) span::after {
-    content: "Découvrir";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Discover Movies → Découvrir les films */
-.sectionTitle:has(span:contains("Discover Movies")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Discover Movies")) span::after {
-    content: "Découvrir les films";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-
-/* Discover TV Shows → Découvrir les séries */
-.sectionTitle:has(span:contains("Discover TV Shows")) span {
-    visibility: hidden;
-    position: relative;
-}
-.sectionTitle:has(span:contains("Discover TV Shows")) span::after {
-    content: "Découvrir les séries";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-}
-✅ Résultat :
-
-L’UI est style Netflix (déjà optimisée avec mon CSS précédent).
-
-Les titres des sections sont traduits visuellement en français.
-
-Pas besoin de modifier Jellyfin ou LibreTranslate pour ça.
-
-⚠️ Par contre, le sélecteur :has() et :contains() ne sont pas supportés par tous les navigateurs.
-👉 Tu veux que je t’adapte une version 100% compatible (avec data-id de Jellyfin au lieu de :contains()), ou on reste sur cette méthode visuelle rapide ?
-
-
-
-
-
-
-
-Vous avez dit :
-enlève les traductions, cela ne fonctionne pas et ameliore encore plus le design
-
-
-ChatGPT a dit :
-Parfait 👍 je vais te refaire un CSS full Netflix-like mais sans les traductions forcées.
-Le but : un affichage moderne, sombre, épuré et immersif, avec des effets visuels fluides et des sections qui respirent.
-
-css
-Copier le code
 /***************************************************
- 🎬 Thème Netflix-like pour Jellyfin
- Optimisé pour immersion & esthétique
+ 🎬 Thème Netflix-like PRO-MGB pour Jellyfin
+ Style sombre, fluide, immersif
+@import url('https://cdn.jsdelivr.net/gh/nos30/jellyfin/CSS-interface-web.css');
 ****************************************************/
 
-/* ---- COULEURS DE BASE ---- */
+/* ---- VARIABLES DE BASE ---- */
 :root {
     --background-color: #141414 !important;
     --text-color: #ffffff !important;
     --primary-accent-color: #e50914 !important; /* Rouge Netflix */
     --secondary-accent-color: #b20710 !important;
+    --card-radius: 12px;
+    --transition-speed: 0.3s;
 }
 
 /* ---- BACKGROUND GLOBAL ---- */
@@ -238,13 +25,15 @@ body {
     font-family: "Helvetica Neue", Arial, sans-serif !important;
 }
 
-/* ---- SECTIONS (titres et marges) ---- */
+/* ---- SECTIONS ---- */
 .sectionTitle {
-    font-size: 1.8rem !important;
-    font-weight: bold !important;
-    margin: 30px 0 15px 15px !important;
+    font-size: 1.7rem !important;
+    font-weight: 700 !important;
+    margin: 40px 0 20px 20px !important;
     color: #fff !important;
     position: relative;
+    letter-spacing: 0.5px;
+    text-transform: none;
 }
 .sectionTitle::after {
     content: "";
@@ -259,44 +48,48 @@ body {
 /* ---- CARTES (films/séries) ---- */
 .card.overflowPortraitCard,
 .card.overflowBackdropCard {
-    border-radius: 10px !important;
+    border-radius: var(--card-radius) !important;
     overflow: hidden !important;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.6) !important;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     background-color: #1a1a1a !important;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.5) !important;
+    transition: transform var(--transition-speed) ease, 
+                box-shadow var(--transition-speed) ease;
+    cursor: pointer;
 }
 .card.overflowPortraitCard:hover,
 .card.overflowBackdropCard:hover {
-    transform: scale(1.15);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.9);
-    z-index: 10;
+    transform: scale(1.12);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.9);
+    z-index: 20;
 }
 
 /* ---- IMAGE DES VIGNETTES ---- */
 .cardImageContainer {
-    border-radius: 10px !important;
+    border-radius: var(--card-radius) !important;
     overflow: hidden !important;
+    position: relative;
 }
 .cardImageContainer img {
-    transition: transform 0.4s ease;
+    transition: transform 0.5s ease, filter 0.5s ease;
 }
 .card:hover .cardImageContainer img {
     transform: scale(1.08);
+    filter: brightness(1.1);
 }
 
 /* ---- TEXTE SUR LES CARTES ---- */
 .cardText {
-    color: #ddd !important;
+    color: #ccc !important;
     font-size: 0.9rem !important;
     text-align: center !important;
-    margin-top: 5px !important;
+    margin-top: 6px !important;
     transition: color 0.2s ease;
 }
 .card:hover .cardText {
     color: var(--primary-accent-color) !important;
 }
 
-/* ---- HEADER (barre du haut) ---- */
+/* ---- HEADER ---- */
 .skinHeader {
     background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 100%) !important;
     border-bottom: none !important;
@@ -304,6 +97,7 @@ body {
 .skinHeader a {
     color: #fff !important;
     font-weight: bold;
+    font-size: 1rem;
     transition: color 0.2s ease;
 }
 .skinHeader a:hover {
@@ -314,17 +108,19 @@ body {
 .button-flat,
 .button-submit {
     background-color: var(--primary-accent-color) !important;
-    border-radius: 20px !important;
-    padding: 8px 16px !important;
+    border-radius: 25px !important;
+    padding: 8px 20px !important;
     color: #fff !important;
-    transition: background 0.3s ease;
+    font-weight: bold !important;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 .button-flat:hover,
 .button-submit:hover {
     background-color: var(--secondary-accent-color) !important;
+    transform: scale(1.05);
 }
 
-/* ---- CACHER LES SCROLLBARS ---- */
+/* ---- SCROLLBARS INVISIBLES ---- */
 ::-webkit-scrollbar {
     display: none;
 }
@@ -333,21 +129,22 @@ body {
     -ms-overflow-style: none;
 }
 
-/* ---- DÉTAIL DES FILMS/SÉRIES ---- */
+/* ---- DÉTAIL DES FILMS ---- */
 .detailLogo,
 .detailImageContainer {
-    border-radius: 12px !important;
+    border-radius: var(--card-radius) !important;
 }
 .detailPagePrimaryContent {
-    background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(20,20,20,0.85) 50%, rgba(20,20,20,0.95) 100%) !important;
-    padding: 20px !important;
-    border-radius: 12px !important;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+    background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(20,20,20,0.9) 40%, rgba(20,20,20,1) 100%) !important;
+    padding: 25px !important;
+    border-radius: var(--card-radius) !important;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.8);
 }
 .detailPagePrimaryContent h1,
 .detailPagePrimaryContent h2,
 .detailPagePrimaryContent h3 {
     color: #fff !important;
+    font-weight: 700 !important;
 }
 
 /* ---- FOOTER / NAVIGATION ---- */
@@ -355,7 +152,7 @@ body {
     background: #0d0d0d !important;
 }
 .mainDrawer a {
-    color: #bbb !important;
+    color: #aaa !important;
     transition: color 0.2s ease;
 }
 .mainDrawer a:hover {
