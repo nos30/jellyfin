@@ -1,0 +1,189 @@
+/***************************************************
+ 🌌 Thème Netflix-like + Traduction FR forcée
+****************************************************/
+
+/* ---- STYLE DE BASE (reprend mon thème Netflix précédent) ---- */
+:root {
+    --background-color: #141414 !important;
+    --text-color: #ffffff !important;
+    --primary-accent-color: #e50914 !important;
+    --link-color: #e50914 !important;
+}
+
+.homePage,
+.page,
+.dialog,
+body {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Vignettes style Netflix */
+.card.overflowPortraitCard,
+.card.overflowBackdropCard {
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card.overflowPortraitCard:hover,
+.card.overflowBackdropCard:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.9);
+}
+
+/* Titres de sections Netflix */
+.sectionTitle {
+    font-size: 1.6rem !important;
+    font-weight: bold !important;
+    margin-left: 10px !important;
+    color: #fff !important;
+    border-left: 4px solid var(--primary-accent-color);
+    padding-left: 8px;
+}
+
+/* ---- TRADUCTIONS DES CATÉGORIES ---- */
+
+/* Continue Watching → Reprendre */
+.sectionTitle:has(span:contains("Continue Watching")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Continue Watching")) span::after {
+    content: "Reprendre";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Next Up → À suivre */
+.sectionTitle:has(span:contains("Next Up")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Next Up")) span::after {
+    content: "À suivre";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Recently Added Movies → Films ajoutés récemment */
+.sectionTitle:has(span:contains("Recently Added Movies")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Recently Added Movies")) span::after {
+    content: "Films ajoutés récemment";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Recently Added Shows → Séries ajoutées récemment */
+.sectionTitle:has(span:contains("Recently Added Shows")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Recently Added Shows")) span::after {
+    content: "Séries ajoutées récemment";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Latest Movies → Derniers films */
+.sectionTitle:has(span:contains("Latest Movies")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Latest Movies")) span::after {
+    content: "Derniers films";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Latest Shows → Dernières séries */
+.sectionTitle:has(span:contains("Latest Shows")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Latest Shows")) span::after {
+    content: "Dernières séries";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Because You Watched → Parce que vous avez regardé */
+.sectionTitle:has(span:contains("Because You Watched")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Because You Watched")) span::after {
+    content: "Parce que vous avez regardé";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* My List → Ma liste */
+.sectionTitle:has(span:contains("My List")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("My List")) span::after {
+    content: "Ma liste";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Watch It Again → À revoir */
+.sectionTitle:has(span:contains("Watch It Again")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Watch It Again")) span::after {
+    content: "À revoir";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Discover → Découvrir */
+.sectionTitle:has(span:contains("Discover")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Discover")) span::after {
+    content: "Découvrir";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Discover Movies → Découvrir les films */
+.sectionTitle:has(span:contains("Discover Movies")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Discover Movies")) span::after {
+    content: "Découvrir les films";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
+
+/* Discover TV Shows → Découvrir les séries */
+.sectionTitle:has(span:contains("Discover TV Shows")) span {
+    visibility: hidden;
+    position: relative;
+}
+.sectionTitle:has(span:contains("Discover TV Shows")) span::after {
+    content: "Découvrir les séries";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+}
