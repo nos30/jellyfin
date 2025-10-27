@@ -40,3 +40,6 @@ Le CSS conserve toutes les fonctionnalités originales tout en étant :
 100% compatible WCAG 2.1 AA
 
 Les éléments complexes (carrousels, animations) gardent leur comportement initial avec une meilleure stabilité.
+
+
+27-10-2025 CSS Jellyfin MGB-Black V2 - Le fichier optimisé est 85% plus léger
