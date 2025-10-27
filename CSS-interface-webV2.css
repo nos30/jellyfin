@@ -1,0 +1,603 @@
+/**************************************************
+ * 🎬 CSS Jellyfin MGB-Black V2 - Version Optimisée
+ * 
+ * @import url("https://cdn.jsdelivr.net/gh/nos30/jellyfin/CSS-interface-webV2.css");
+ * 
+ * Améliorations:
+ * - Variables CSS centralisées
+ * - Performance optimisée (backdrop-filter réduits)
+ * - Gradients simplifiés
+ * - Code reorganisé et commenté
+ * - Suppression des !important excessifs
+ * - Corrections des propriétés invalides
+ **************************************************/
+
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
+
+/* ==========================================
+   VARIABLES CSS
+   ========================================== */
+:root {
+    /* Couleurs principales */
+    --primary-bg: #080112;
+    --secondary-bg: rgba(8, 1, 18, 0.95);
+    --card-bg: rgba(0, 0, 0, 0.5);
+    --card-hover-bg: rgba(20, 5, 35, 0.7);
+
+    /* Texte */
+    --text-primary: #fff;
+    --text-primary-rgba: rgba(255, 255, 255, 1);
+    --text-secondary: rgba(255, 255, 255, 0.75);
+    --text-muted: rgba(255, 255, 255, 0.5);
+
+    /* Accent et bordures */
+    --accent: #0080D5;
+    --accent-hover: #0099ff;
+    --border-color: rgba(255, 255, 255, 0.1);
+
+    /* Espacements */
+    --spacing-xs: 0.25em;
+    --spacing-sm: 0.5em;
+    --spacing-md: 1em;
+    --spacing-lg: 1.5em;
+    --spacing-xl: 2em;
+
+    /* Arrondi */
+    --rounding: 10px;
+    --rounding-sm: 5px;
+    --rounding-lg: 15px;
+
+    /* Sélection */
+    --selection: #8C53C6;
+
+    /* Ombres */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+    --transition-slow: 0.5s ease;
+
+    /* Gradient simplifié (4 points au lieu de 16) */
+    --gradient-primary: linear-gradient(90deg, 
+        rgb(22, 6, 47) 0%, 
+        rgb(35, 10, 75) 35%, 
+        rgb(42, 12, 88) 65%, 
+        rgb(22, 6, 47) 100%);
+}
+
+/* ==========================================
+   CONFIGURATION GÉNÉRALE
+   ========================================== */
+html {
+    color: var(--text-primary);
+    color: var(--text-primary-rgba);
+}
+
+.backgroundContainer, 
+.preload {
+    background-color: var(--primary-bg);
+}
+
+body {
+    font-family: 'Sofia Sans', sans-serif;
+}
+
+/* ==========================================
+   ZONE DE TEXTE PERSONNALISÉE
+   ========================================== */
+#txtCustomCss, 
+#txtLocalCustomCss {
+    height: 400px;
+    max-height: none;
+    overflow-y: scroll;
+    resize: vertical;
+    font-size: 0.85em;
+}
+
+.customCssContainer textarea {
+    height: auto;
+}
+
+/* ==========================================
+   CONTENEUR PRINCIPAL & SECTIONS
+   ========================================== */
+.itemsContainer.padded-left {
+    position: relative; /* Correction: 'top' n'est pas valide */
+    z-index: 1;
+}
+
+.sections.homeSectionsContainer::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--gradient-primary);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.sections.homeSectionsContainer {
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================
+   EN-TÊTE ET NAVIGATION
+   ========================================== */
+.skinHeader.skinHeader-withBackground.headroom {
+    background: var(--secondary-bg);
+    backdrop-filter: blur(10px); /* Réduit de 20px à 10px pour performance */
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.headerTabs.sectionTabs {
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.headerButton,
+.paper-icon-button-light {
+    color: var(--text-primary);
+    border-radius: var(--rounding-sm);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.headerButton:hover,
+.paper-icon-button-light:hover {
+    background-color: var(--card-hover-bg);
+    transform: scale(1.05);
+}
+
+/* Bouton utilisateur */
+.headerUserButton {
+    border-radius: 50%;
+    transition: box-shadow var(--transition-medium);
+}
+
+.headerUserButton:hover {
+    box-shadow: 0 0 15px var(--accent);
+}
+
+/* ==========================================
+   CARTES (CARDS)
+   ========================================== */
+.cardBox,
+.card {
+    background: var(--card-bg);
+    border-radius: var(--rounding);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+    border: 1px solid var(--border-color);
+}
+
+.cardBox:hover,
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+}
+
+/* Overlay des cartes */
+.cardOverlayButton,
+.cardOverlayContainer {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    border-radius: var(--rounding);
+}
+
+/* Indicateurs de progression */
+.cardIndicators,
+.itemProgressBar {
+    background-color: var(--accent);
+    border-radius: var(--rounding-sm);
+    height: 4px;
+}
+
+.itemProgressBarForeground {
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+    border-radius: var(--rounding-sm);
+}
+
+/* ==========================================
+   PAGE DE DÉTAIL
+   ========================================== */
+.detailPagePrimaryContainer,
+.detailPageContent {
+    background: var(--primary-bg);
+}
+
+.detailImageContainer .card {
+    border-radius: var(--rounding-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.detailButton,
+.itemDetailPage .button-flat {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-radius: var(--rounding);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    transition: background var(--transition-fast), color var(--transition-fast);
+    border: 1px solid var(--border-color);
+}
+
+.detailButton:hover,
+.itemDetailPage .button-flat:hover {
+    background: var(--accent);
+    color: var(--text-primary);
+    border-color: var(--accent);
+}
+
+/* Bouton play principal */
+.detailButton-primary,
+.btnPlay {
+    background: var(--accent);
+    color: var(--text-primary);
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(0, 128, 213, 0.4);
+}
+
+.detailButton-primary:hover,
+.btnPlay:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 6px 20px rgba(0, 128, 213, 0.6);
+    transform: scale(1.05);
+}
+
+/* ==========================================
+   MENUS ET DIALOGUES
+   ========================================== */
+.dialog,
+.actionsheet,
+.contextMenu {
+    background: var(--secondary-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: var(--rounding-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+.dialogContentInner,
+.formDialogContent {
+    color: var(--text-primary);
+}
+
+.listItem {
+    background: transparent;
+    border-radius: var(--rounding-sm);
+    transition: background var(--transition-fast);
+}
+
+.listItem:hover,
+.listItem:focus {
+    background: var(--card-hover-bg);
+}
+
+/* ==========================================
+   FORMULAIRES ET INPUTS
+   ========================================== */
+.inputContainer,
+.emby-input,
+.emby-textarea,
+.emby-select {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--rounding-sm);
+    padding: var(--spacing-sm);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.inputContainer:focus-within,
+.emby-input:focus,
+.emby-textarea:focus,
+.emby-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(0, 128, 213, 0.3);
+    outline: none;
+}
+
+.inputLabel,
+.fieldDescription {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+/* Checkboxes et Radio buttons */
+.checkboxContainer,
+.emby-checkbox {
+    accent-color: var(--accent);
+}
+
+/* ==========================================
+   BOUTONS
+   ========================================== */
+.button-flat,
+.raised,
+.emby-button {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-radius: var(--rounding);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 1px solid var(--border-color);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.button-flat:hover,
+.raised:hover,
+.emby-button:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.button-submit,
+.emby-button-submit {
+    background: var(--accent);
+    color: var(--text-primary);
+}
+
+/* ==========================================
+   LECTEUR VIDEO
+   ========================================== */
+.videoOsdBottom,
+.videoOsdTop {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+}
+
+.osdControls {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.sliderBubble {
+    background: var(--accent);
+    color: var(--text-primary);
+    border-radius: var(--rounding-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* Barre de progression */
+.mdl-slider,
+.emby-slider {
+    accent-color: var(--accent);
+}
+
+.mdl-slider::-webkit-slider-thumb {
+    background: var(--accent);
+}
+
+.mdl-slider::-moz-range-thumb {
+    background: var(--accent);
+}
+
+/* ==========================================
+   SIDEBAR
+   ========================================== */
+.mainDrawer,
+.navDrawer {
+    background: var(--secondary-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-right: 1px solid var(--border-color);
+}
+
+.navMenuOption {
+    border-radius: var(--rounding-sm);
+    margin: var(--spacing-xs) var(--spacing-sm);
+    transition: background var(--transition-fast);
+}
+
+.navMenuOption:hover,
+.navMenuOption.navMenuOption-selected {
+    background: var(--card-hover-bg);
+    border-left: 3px solid var(--accent);
+}
+
+/* ==========================================
+   SCROLLBARS
+   ========================================== */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--primary-bg);
+    border-radius: var(--rounding-sm);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--card-hover-bg);
+    border-radius: var(--rounding-sm);
+    border: 2px solid var(--primary-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* ==========================================
+   SÉLECTION DE TEXTE
+   ========================================== */
+::selection {
+    background: var(--selection);
+    color: var(--text-primary);
+}
+
+::-moz-selection {
+    background: var(--selection);
+    color: var(--text-primary);
+}
+
+/* ==========================================
+   MEDIA QUERIES - RESPONSIVE
+   ========================================== */
+
+/* Tablettes et petits écrans */
+@media (max-width: 1024px) {
+    :root {
+        --rounding: 8px;
+        --spacing-md: 0.85em;
+    }
+
+    .skinHeader {
+        backdrop-filter: blur(5px); /* Réduit pour performance mobile */
+        -webkit-backdrop-filter: blur(5px);
+    }
+
+    .cardBox:hover,
+    .card:hover {
+        transform: translateY(-3px) scale(1.01); /* Effet réduit sur mobile */
+    }
+}
+
+/* Smartphones */
+@media (max-width: 768px) {
+    :root {
+        --rounding: 6px;
+        --spacing-md: 0.75em;
+        --spacing-lg: 1em;
+    }
+
+    .dialog,
+    .actionsheet {
+        backdrop-filter: blur(10px); /* Encore plus réduit */
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .detailButton,
+    .button-flat {
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: 0.9em;
+    }
+
+    /* Désactiver certaines animations lourdes sur mobile */
+    .cardBox:hover,
+    .card:hover {
+        transform: none;
+    }
+}
+
+/* Très grands écrans */
+@media (min-width: 1920px) {
+    :root {
+        --rounding: 12px;
+        --rounding-lg: 20px;
+        font-size: clamp(14px, 1vw, 18px); /* Limite la taille de police */
+    }
+}
+
+/* ==========================================
+   UTILITAIRES
+   ========================================== */
+
+/* États de focus pour accessibilité */
+.focusable:focus,
+button:focus,
+a:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Désactiver les outlines pour les clics souris */
+.focusable:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Classes d'espacement utiles */
+.mt-1 { margin-top: var(--spacing-sm); }
+.mt-2 { margin-top: var(--spacing-md); }
+.mt-3 { margin-top: var(--spacing-lg); }
+
+.mb-1 { margin-bottom: var(--spacing-sm); }
+.mb-2 { margin-bottom: var(--spacing-md); }
+.mb-3 { margin-bottom: var(--spacing-lg); }
+
+.p-1 { padding: var(--spacing-sm); }
+.p-2 { padding: var(--spacing-md); }
+.p-3 { padding: var(--spacing-lg); }
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card,
+.cardBox,
+.listItem {
+    animation: fadeIn var(--transition-medium);
+}
+
+/* Préférence utilisateur: réduire les animations */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
+    }
+}
+
+/* ==========================================
+   CORRECTIONS SPÉCIFIQUES
+   ========================================== */
+
+/* Fix pour les images de fond */
+.backdropImage {
+    filter: blur(20px) brightness(0.4);
+    transform: scale(1.1);
+}
+
+/* Fix pour les tooltips */
+.tooltip {
+    background: var(--secondary-bg);
+    color: var(--text-primary);
+    border-radius: var(--rounding-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85em;
+    box-shadow: var(--shadow-md);
+}
+
+/* Fix pour les badges */
+.badge,
+.mediaInfoItem {
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    border-radius: var(--rounding-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8em;
+}
+
+/* Fix pour les spinners/loading */
+.mdl-spinner,
+.emby-loading {
+    color: var(--accent);
+}
+
+/* ==========================================
+   FIN DU CSS
+   ========================================== */
