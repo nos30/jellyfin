@@ -10,6 +10,15 @@
  * - Code reorganisé et commenté
  * - Suppression des !important excessifs
  * - Corrections des propriétés invalides
+
+* Améliorations UI:
+ * - Design glassmorphism moderne
+ * - Animations et micro-interactions
+ * - Dégradés colorés dynamiques
+ * - Typographie améliorée
+ * - Effets visuels 3D
+ * - Navigation sidebar modernisée
+ * - Page de détail cinématique
  **************************************************/
 
 @import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
@@ -21,19 +30,23 @@
     /* Couleurs principales */
     --primary-bg: #080112;
     --secondary-bg: rgba(8, 1, 18, 0.95);
-    --card-bg: rgba(0, 0, 0, 0.5);
+    --card-bg: rgba(0, 0, 0, 0.3);
     --card-hover-bg: rgba(20, 5, 35, 0.7);
+    --dark-bg-primary: #050008;
+    --dark-bg-secondary: rgba(5, 0, 8, 0.98);
 
     /* Texte */
     --text-primary: #fff;
     --text-primary-rgba: rgba(255, 255, 255, 1);
     --text-secondary: rgba(255, 255, 255, 0.75);
     --text-muted: rgba(255, 255, 255, 0.5);
+    --dark-text-glow: 0 0 20px rgba(255, 255, 255, 0.1);
 
     /* Accent et bordures */
     --accent: #0080D5;
     --accent-hover: #0099ff;
     --border-color: rgba(255, 255, 255, 0.1);
+    --border-glass: rgba(255, 255, 255, 0.18);
 
     /* Espacements */
     --spacing-xs: 0.25em;
@@ -54,18 +67,31 @@
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
+    --shadow-glow: 0 15px 40px rgba(0, 128, 213, 0.4);
 
     /* Transitions */
     --transition-fast: 0.2s ease;
     --transition-medium: 0.3s ease;
     --transition-slow: 0.5s ease;
 
-    /* Gradient simplifié (4 points au lieu de 16) */
+    /* Gradients */
     --gradient-primary: linear-gradient(90deg, 
         rgb(22, 6, 47) 0%, 
         rgb(35, 10, 75) 35%, 
         rgb(42, 12, 88) 65%, 
         rgb(22, 6, 47) 100%);
+
+    --gradient-animated: 
+        linear-gradient(135deg, 
+            #1a0033 0%, 
+            #2d0052 25%, 
+            #1a0033 50%, 
+            #0a0015 75%, 
+            #1a0033 100%);
+
+    --gradient-button: linear-gradient(135deg, 
+        var(--accent) 0%, 
+        var(--accent-hover) 100%);
 }
 
 /* ==========================================
@@ -105,10 +131,11 @@ body {
    CONTENEUR PRINCIPAL & SECTIONS
    ========================================== */
 .itemsContainer.padded-left {
-    position: relative; /* Correction: 'top' n'est pas valide */
+    position: relative;
     z-index: 1;
 }
 
+/* Gradient de fond animé */
 .sections.homeSectionsContainer::before {
     content: '';
     position: fixed;
@@ -116,9 +143,20 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: var(--gradient-primary);
+    background: var(--gradient-animated);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     z-index: -1;
     pointer-events: none;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .sections.homeSectionsContainer {
@@ -131,7 +169,7 @@ body {
    ========================================== */
 .skinHeader.skinHeader-withBackground.headroom {
     background: var(--secondary-bg);
-    backdrop-filter: blur(10px); /* Réduit de 20px à 10px pour performance */
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: var(--shadow-md);
     border-bottom: 1px solid var(--border-color);
@@ -156,7 +194,7 @@ body {
     transform: scale(1.05);
 }
 
-/* Bouton utilisateur */
+/* Bouton utilisateur avec effet glow */
 .headerUserButton {
     border-radius: 50%;
     transition: box-shadow var(--transition-medium);
@@ -167,88 +205,336 @@ body {
 }
 
 /* ==========================================
-   CARTES (CARDS)
+   CARTES (CARDS) - GLASSMORPHISM
    ========================================== */
 .cardBox,
 .card {
     background: var(--card-bg);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
     border-radius: var(--rounding);
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-glass);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.37),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transition: transform var(--transition-medium), 
+                box-shadow var(--transition-medium),
+                border-color var(--transition-medium);
+    animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .cardBox:hover,
 .card:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--accent);
+    box-shadow: 
+        0 15px 40px rgba(0, 128, 213, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        0 0 30px rgba(0, 128, 213, 0.2);
+    border-color: rgba(0, 128, 213, 0.6);
 }
 
-/* Overlay des cartes */
+/* Texte des cartes avec lueur subtile */
+.itemName,
+.listItemBodyText,
+.cardText {
+    text-shadow: var(--dark-text-glow);
+}
+
+/* Overlay des cartes avec gradient amélioré */
 .cardOverlayButton,
 .cardOverlayContainer {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.7) 30%,
+        rgba(0, 0, 0, 0.3) 60%,
+        transparent 100%
+    );
     border-radius: var(--rounding);
 }
 
-/* Indicateurs de progression */
+/* Indicateurs de progression animés */
 .cardIndicators,
 .itemProgressBar {
-    background-color: var(--accent);
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: var(--rounding-sm);
-    height: 4px;
+    overflow: hidden;
 }
 
 .itemProgressBarForeground {
-    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+    background: linear-gradient(90deg, 
+        #0080D5 0%, 
+        #00c3ff 50%, 
+        #0080D5 100%);
+    background-size: 200% 100%;
     border-radius: var(--rounding-sm);
+    box-shadow: 0 0 10px rgba(0, 128, 213, 0.5);
+    animation: progressShimmer 2s linear infinite;
+}
+
+@keyframes progressShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
 }
 
 /* ==========================================
-   PAGE DE DÉTAIL
+   PAGE DE DÉTAIL - CINÉMATIQUE
    ========================================== */
-.detailPagePrimaryContainer,
-.detailPageContent {
+.detailPagePrimaryContainer {
+    position: relative;
     background: var(--primary-bg);
 }
 
+.detailPagePrimaryContainer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at center top,
+        transparent 0%,
+        rgba(8, 1, 18, 0.6) 40%,
+        rgba(8, 1, 18, 0.95) 100%
+    );
+    z-index: 1;
+}
+
+.detailPageContent {
+    background: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+/* Backdrop avec effet blur et overlay */
+.detailBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    filter: blur(30px) brightness(0.4);
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+/* Poster avec effet 3D */
 .detailImageContainer .card {
     border-radius: var(--rounding-lg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.8),
+        0 0 50px rgba(0, 128, 213, 0.2);
+    transform: perspective(1000px) rotateY(-2deg);
+    transition: all var(--transition-slow);
 }
 
+.detailImageContainer .card:hover {
+    transform: perspective(1000px) rotateY(0deg) scale(1.05);
+    box-shadow: 
+        0 40px 80px rgba(0, 0, 0, 0.9),
+        0 0 80px rgba(0, 128, 213, 0.4);
+}
+
+/* Titres avec hiérarchie claire */
+.itemName,
+.detailPageTitle {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.itemName {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+}
+
+.detailPageTitle {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+/* Sous-titres modernes */
+.itemGenres,
+.itemMiscInfo {
+    font-size: 0.9em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+/* ==========================================
+   BOUTONS - EFFET 3D ET RIPPLE
+   ========================================== */
 .detailButton,
 .itemDetailPage .button-flat {
-    background: var(--card-bg);
+    position: relative;
+    background: rgba(0, 0, 0, 0.4);
     color: var(--text-primary);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--rounding);
     padding: var(--spacing-sm) var(--spacing-lg);
-    transition: background var(--transition-fast), color var(--transition-fast);
-    border: 1px solid var(--border-color);
+    transition: all var(--transition-medium);
+    overflow: hidden;
 }
 
-.detailButton:hover,
-.itemDetailPage .button-flat:hover {
-    background: var(--accent);
-    color: var(--text-primary);
-    border-color: var(--accent);
+.detailButton::before,
+.button-flat::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(45deg, 
+        var(--accent), 
+        var(--accent-hover), 
+        var(--accent));
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--transition-medium);
 }
 
-/* Bouton play principal */
+.detailButton:hover::before,
+.button-flat:hover::before {
+    opacity: 1;
+}
+
+/* Bouton play principal avec effet 3D */
 .detailButton-primary,
 .btnPlay {
-    background: var(--accent);
+    background: var(--gradient-button);
     color: var(--text-primary);
     font-weight: 700;
-    box-shadow: 0 4px 15px rgba(0, 128, 213, 0.4);
+    border: none;
+    box-shadow: 
+        0 4px 15px rgba(0, 128, 213, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(0);
+    transition: all var(--transition-fast);
 }
 
 .detailButton-primary:hover,
 .btnPlay:hover {
-    background: var(--accent-hover);
-    box-shadow: 0 6px 20px rgba(0, 128, 213, 0.6);
-    transform: scale(1.05);
+    box-shadow: 
+        0 6px 25px rgba(0, 128, 213, 0.6),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.detailButton-primary:active,
+.btnPlay:active {
+    transform: translateY(1px);
+    box-shadow: 
+        0 2px 10px rgba(0, 128, 213, 0.4),
+        inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet ripple pour tous les boutons */
+.button-flat,
+.emby-button {
+    position: relative;
+    overflow: hidden;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-radius: var(--rounding);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 1px solid var(--border-color);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.button-flat::after,
+.emby-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.button-flat:active::after,
+.emby-button:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+.button-flat:hover,
+.raised:hover,
+.emby-button:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.button-submit,
+.emby-button-submit {
+    background: var(--accent);
+    color: var(--text-primary);
+}
+
+/* ==========================================
+   BADGES ET INDICATEURS
+   ========================================== */
+.mediaInfoItem,
+.badge {
+    background: linear-gradient(135deg, 
+        rgba(0, 128, 213, 0.8) 0%, 
+        rgba(0, 100, 180, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--rounding-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 8px rgba(0, 128, 213, 0.3);
+}
+
+/* Badge nouveauté avec animation pulse */
+.badge-new {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
 }
 
 /* ==========================================
@@ -273,12 +559,69 @@ body {
 .listItem {
     background: transparent;
     border-radius: var(--rounding-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     transition: background var(--transition-fast);
 }
 
 .listItem:hover,
 .listItem:focus {
     background: var(--card-hover-bg);
+}
+
+/* ==========================================
+   SIDEBAR NAVIGATION - MODERNISÉE
+   ========================================== */
+.mainDrawer,
+.navDrawer {
+    background: var(--dark-bg-secondary);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.navMenuOption {
+    position: relative;
+    border-radius: var(--rounding);
+    margin: var(--spacing-xs) var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    transition: all var(--transition-medium);
+    overflow: hidden;
+}
+
+.navMenuOption::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transition: transform var(--transition-medium);
+}
+
+.navMenuOption:hover::before,
+.navMenuOption.navMenuOption-selected::before {
+    transform: scaleY(1);
+}
+
+.navMenuOption:hover,
+.navMenuOption.navMenuOption-selected {
+    background: linear-gradient(90deg, 
+        rgba(0, 128, 213, 0.15) 0%, 
+        rgba(0, 128, 213, 0.05) 100%);
+    transform: translateX(5px);
+}
+
+.navMenuOption i {
+    margin-right: var(--spacing-sm);
+    transition: all var(--transition-medium);
+}
+
+.navMenuOption:hover i {
+    color: var(--accent);
+    filter: drop-shadow(0 0 8px var(--accent));
 }
 
 /* ==========================================
@@ -305,47 +648,54 @@ body {
     outline: none;
 }
 
+/* Barre de recherche stylée */
+.searchFields {
+    position: relative;
+}
+
+.emby-input[type="search"] {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: 1em;
+    transition: all var(--transition-medium);
+}
+
+.emby-input[type="search"]:focus {
+    background: rgba(0, 0, 0, 0.6);
+    border-color: var(--accent);
+    box-shadow: 
+        0 0 20px rgba(0, 128, 213, 0.3),
+        inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.searchFields button {
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    transition: all var(--transition-medium);
+}
+
+.searchFields button:hover {
+    color: var(--accent);
+    transform: translateY(-50%) scale(1.2) rotate(90deg);
+}
+
 .inputLabel,
 .fieldDescription {
     color: var(--text-secondary);
     font-size: 0.9em;
 }
 
-/* Checkboxes et Radio buttons */
 .checkboxContainer,
 .emby-checkbox {
     accent-color: var(--accent);
-}
-
-/* ==========================================
-   BOUTONS
-   ========================================== */
-.button-flat,
-.raised,
-.emby-button {
-    background: var(--card-bg);
-    color: var(--text-primary);
-    border-radius: var(--rounding);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border: 1px solid var(--border-color);
-    transition: background var(--transition-fast), transform var(--transition-fast);
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-}
-
-.button-flat:hover,
-.raised:hover,
-.emby-button:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-}
-
-.button-submit,
-.emby-button-submit {
-    background: var(--accent);
-    color: var(--text-primary);
 }
 
 /* ==========================================
@@ -368,7 +718,6 @@ body {
     padding: var(--spacing-xs) var(--spacing-sm);
 }
 
-/* Barre de progression */
 .mdl-slider,
 .emby-slider {
     accent-color: var(--accent);
@@ -380,29 +729,6 @@ body {
 
 .mdl-slider::-moz-range-thumb {
     background: var(--accent);
-}
-
-/* ==========================================
-   SIDEBAR
-   ========================================== */
-.mainDrawer,
-.navDrawer {
-    background: var(--secondary-bg);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid var(--border-color);
-}
-
-.navMenuOption {
-    border-radius: var(--rounding-sm);
-    margin: var(--spacing-xs) var(--spacing-sm);
-    transition: background var(--transition-fast);
-}
-
-.navMenuOption:hover,
-.navMenuOption.navMenuOption-selected {
-    background: var(--card-hover-bg);
-    border-left: 3px solid var(--accent);
 }
 
 /* ==========================================
@@ -422,6 +748,7 @@ body {
     background: var(--card-hover-bg);
     border-radius: var(--rounding-sm);
     border: 2px solid var(--primary-bg);
+    transition: background var(--transition-fast);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -453,13 +780,17 @@ body {
     }
 
     .skinHeader {
-        backdrop-filter: blur(5px); /* Réduit pour performance mobile */
+        backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
     }
 
     .cardBox:hover,
     .card:hover {
-        transform: translateY(-3px) scale(1.01); /* Effet réduit sur mobile */
+        transform: translateY(-3px) scale(1.01);
+    }
+
+    .detailImageContainer .card {
+        transform: none;
     }
 }
 
@@ -473,7 +804,7 @@ body {
 
     .dialog,
     .actionsheet {
-        backdrop-filter: blur(10px); /* Encore plus réduit */
+        backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }
 
@@ -483,9 +814,16 @@ body {
         font-size: 0.9em;
     }
 
-    /* Désactiver certaines animations lourdes sur mobile */
     .cardBox:hover,
     .card:hover {
+        transform: none;
+    }
+
+    .detailImageContainer .card:hover {
+        transform: none;
+    }
+
+    .navMenuOption:hover {
         transform: none;
     }
 }
@@ -495,7 +833,7 @@ body {
     :root {
         --rounding: 12px;
         --rounding-lg: 20px;
-        font-size: clamp(14px, 1vw, 18px); /* Limite la taille de police */
+        font-size: clamp(14px, 1vw, 18px);
     }
 }
 
@@ -511,14 +849,13 @@ a:focus {
     outline-offset: 2px;
 }
 
-/* Désactiver les outlines pour les clics souris */
 .focusable:focus:not(:focus-visible),
 button:focus:not(:focus-visible),
 a:focus:not(:focus-visible) {
     outline: none;
 }
 
-/* Classes d'espacement utiles */
+/* Classes d'espacement */
 .mt-1 { margin-top: var(--spacing-sm); }
 .mt-2 { margin-top: var(--spacing-md); }
 .mt-3 { margin-top: var(--spacing-lg); }
@@ -531,34 +868,14 @@ a:focus:not(:focus-visible) {
 .p-2 { padding: var(--spacing-md); }
 .p-3 { padding: var(--spacing-lg); }
 
-/* ==========================================
-   ANIMATIONS
-   ========================================== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.card,
-.cardBox,
-.listItem {
-    animation: fadeIn var(--transition-medium);
-}
-
 /* Préférence utilisateur: réduire les animations */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-        animation-duration: 0.01ms;
-        animation-iteration-count: 1;
-        transition-duration: 0.01ms;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
 
@@ -582,20 +899,15 @@ a:focus:not(:focus-visible) {
     box-shadow: var(--shadow-md);
 }
 
-/* Fix pour les badges */
-.badge,
-.mediaInfoItem {
-    background: var(--card-bg);
-    color: var(--text-secondary);
-    border-radius: var(--rounding-sm);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.8em;
-}
-
 /* Fix pour les spinners/loading */
 .mdl-spinner,
 .emby-loading {
     color: var(--accent);
+}
+
+/* Séparateurs subtils */
+.verticalSection {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 /* ==========================================
