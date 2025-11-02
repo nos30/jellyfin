@@ -1,0 +1,337 @@
+/*
+================================================================================
+|                                                                              |
+|                         THÈME PERSONNALISÉ JELLYFIN                          |
+|                    Styles de la Page de Connexion (loginpage.css)           |
+|                                                                              |
+================================================================================
+*/
+
+/* ~~~~~~~~~~~~~~~~~~~~ PAGE DE CONNEXION - DISPOSITION GÉNÉRALE & ARRIÈRE-PLAN ~~~~~~~~~~~~~~~~~~~~ */
+
+/* Style du conteneur principal de la page de connexion */
+#loginPage .padded-left.padded-right.padded-bottom-page {
+  margin: 0 auto !important;                    /* Centre la boîte de connexion */
+  background: rgba(0, 0, 0, 0.35) !important;   /* Fond noir semi-transparent pour la boîte */
+  width: 45em !important;                       /* Largeur fixe de la boîte de connexion */
+  border-radius: 15px !important;               /* Coins arrondis pour la boîte */
+}
+
+/* Style de la page de connexion globale */
+body:has(#loginPage) .backdropContainer {
+    background: var(--background-image, url(https://i.imgur.com/Ewk3Pqw.png)) !important;  /* Image de fond personnalisable */
+    background-size: cover !important;            /* Image couvre tout l'écran */
+    background-position: center !important;       /* Image centrée */
+    filter: blur(5px) brightness(.5);            /* Flou léger + assombrissement à 50% */
+    animation: fadeIn 1s ease-in;                 /* Animation d'apparition en 1 seconde */
+    z-index: -2;                                  /* Place l'arrière-plan derrière tout */
+}
+
+#loginPage .padded-bottom-page {
+    padding-bottom: 1em !important;               /* Espacement en bas de la page */
+}
+
+/* Définition de l'animation d'apparition progressive */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }  /* Début : transparent et décalé vers le bas */
+  to { opacity: 1; transform: translateY(0); }       /* Fin : opaque et position normale */
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ FORMULAIRE DE CONNEXION & STYLE DE SÉLECTION D'UTILISATEUR ~~~~~~~~~~~~~~~~~~~~ */
+
+/* Réduit la largeur des éléments du formulaire (sélection d'utilisateur et formulaire manuel) */
+#loginPage .readOnlyContent,  /* Conteneur pour les cartes de sélection d'utilisateur */
+#loginPage form               /* Formulaire de connexion manuelle */
+{
+  max-width: 32em !important;      /* Largeur maximale du contenu du formulaire */
+  padding-top: 2em !important;     /* Espacement en haut */
+}
+
+/* Style du titre "Sélectionner un utilisateur" ou "Se connecter" */
+#loginPage .sectionTitle {
+  margin: 0 auto 1.2em !important;    /* Centrage et marge en bas */
+  text-align: center;                 /* Texte centré */
+}
+
+/* Styles des cartes individuelles d'utilisateur dans le formulaire de connexion visuel */
+#loginPage .squareCard {             /* Cartes de sélection d'utilisateur */
+    width: 10em !important;           /* Largeur de chaque carte */
+}
+
+#loginPage .cardText {
+    white-space: normal !important;   /* Permet le retour à la ligne du texte */
+    font-weight: bold;                /* Texte en gras */
+    text-shadow: -1px 1px 5px var(--text-color);  /* Ombre portée pour meilleure lisibilité */
+}
+
+/* Style du conteneur d'image utilisateur dans les cartes */
+#loginPage .cardImageContainer {
+    border-radius: 50% !important;                /* Images circulaires des utilisateurs */
+    aspect-ratio: 1 / 1 !important;               /* Assure un cercle parfait */
+    background-size: cover !important;            /* Image couvre tout le conteneur */
+    background-position: center !important;       /* Image centrée */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;  /* Transitions fluides */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);  /* Lueur blanche subtile */
+}
+
+/* Supprime l'arrière-plan/ombre par défaut du padder pour laisser apparaître les styles d'image */
+#loginPage .cardPadder {
+    background: none !important;      /* Pas d'arrière-plan */
+    box-shadow: none !important;      /* Pas d'ombre */
+}
+
+/* Zoom fluide & lueur améliorée au survol */
+#loginPage .squareCard:hover .cardImageContainer {
+    transform: scale(1.08) !important;   /* Zoom de 8% au survol */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 0 20px var(--primary-accent-color) !important;  /* Lueur blanche + lueur colorée */
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ QUICK CONNECT & STYLE DU DIALOGUE DE CONNEXION MANUELLE ~~~~~~~~~~~~~~~~~~~~ */
+/* Style de la boîte de dialogue qui apparaît pour Quick Connect ou la saisie manuelle du mot de passe */
+
+/* S'applique au dialogue principal quand la page de connexion est visible */
+body:has(#loginPage:not(.hide)) .dialogContainer .formDialog {
+  border-radius: 60px !important;     /* Dialogue très arrondi */
+}
+
+/* Style du pied de page du dialogue (contenant les boutons) */
+body:has(#loginPage:not(.hide)) .dialogContainer .formDialogFooter .emby-button {
+  background-color: var(--primary-accent-color) !important;  /* Couleur d'accent pour les boutons */
+  color: white !important;                                   /* Texte blanc */
+}
+
+/* Style de l'en-tête du dialogue */
+body:has(#loginPage:not(.hide)) .formDialogHeader {
+  background-color: var(--primary-accent-color) !important;  /* Couleur d'accent pour l'en-tête */
+  border-top-left-radius: 60px;      /* Correspond à l'arrondi du dialogue */
+  border-top-right-radius: 60px;     /* Correspond à l'arrondi du dialogue */
+  padding: 1em;                       /* Espacement intérieur */
+  margin-left: .2em !important;       /* Légère marge à gauche */
+  color: var(--text-color);           /* Couleur du texte */
+}
+
+/* Style du texte du titre dans l'en-tête du dialogue */
+body:has(#loginPage:not(.hide)) .formDialogHeaderTitle {
+  font-size: 1.5em;                   /* Taille de police agrandie */
+  font-weight: bold;                  /* Texte en gras */
+}
+
+/* Style de la zone de contenu interne du dialogue */
+body:has(#loginPage:not(.hide)) .dialogContentInner {
+  padding-top: 2em;                   /* Espacement en haut */
+  font-weight: bold;                  /* Texte en gras */
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ MASQUAGE DES ÉLÉMENTS PAR DÉFAUT ~~~~~~~~~~~~~~~~~~~~ */
+
+/* Masque les boutons "Connexion manuelle" et "Mot de passe oublié" sur l'écran principal de sélection d'utilisateur */
+#loginPage .raised.cancel.block.btnManual.emby-button,
+#loginPage .raised.cancel.block.btnForgotPassword.emby-button {
+    display: none;                    /* Élément masqué */
+}
+
+/* Masque l'en-tête par défaut (y compris le menu hamburger) sur la page de connexion */
+body:has(#loginPage:not(.hide)) .headerTop {
+    display: none !important;         /* En-tête masqué */
+}
+
+/* Ajuste l'espacement pour les pages autonomes quand l'en-tête est masqué */
+body:has(#loginPage:not(.hide)) .standalonePage {
+    padding-top: 1em !important;      /* Réduit l'espacement en haut */
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ REMPLACEMENT DU LOGO POUR "VEUILLEZ VOUS CONNECTER" ~~~~~~~~~~~~~~~~~~~~ */
+/* Remplace le texte H1 par défaut "Veuillez vous connecter" par un logo */
+
+/* Style général des éléments H1 sur la page de connexion (cible le texte "Veuillez vous connecter") */
+#loginPage h1 {
+  color: #ffffff00;                   /* Rend le texte transparent */
+  overflow: hidden;                   /* Cache le débordement */
+  white-space: nowrap;                /* Empêche le retour à la ligne */
+  display: block !important;          /* Affichage en bloc */
+  height: 80px;                       /* Hauteur définie pour le conteneur du logo */
+  line-height: normal;                /* Hauteur de ligne normale */
+  margin: 10px auto !important;       /* Centrage et marge verticale */
+  text-align: center !important;      /* Texte centré */
+  position: relative;                 /* Position relative pour le pseudo-élément */
+  padding: 20px 0 10px 0;            /* Espacement interne */
+  border: none;                       /* Pas de bordure */
+}
+
+/* Utilise un pseudo-élément pour afficher le logo */
+#loginPage h1::before {
+  content: '' !important;                          /* Contenu vide pour l'image */
+  display: block !important;                       /* Affichage en bloc */
+  width: 100% !important;                          /* Pleine largeur */
+  height: 80px !important;                         /* Hauteur du logo */
+  background: var(--logo) no-repeat center center !important;  /* Utilise la variable --logo */
+  background-size: contain !important;             /* Logo s'adapte sans déformation */
+  text-indent: 0;                                  /* Réinitialise l'indentation si présente */
+}
+
+/* Ajuste le .sectionTitle (utilisé pour "Sélectionner un utilisateur" / "Se connecter") quand le logo remplace H1 */
+#loginPage .sectionTitle {
+  margin: -10px auto 1.2em !important;  /* Marge négative en haut pour remonter légèrement */
+  text-align: center;                   /* Texte centré */
+  padding: 0;                            /* Pas d'espacement interne */
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ DISCLAIMER & TEXTE DE PIED DE PAGE ~~~~~~~~~~~~~~~~~~~~ */
+
+/* Style du texte de disclaimer de connexion si présent */
+.loginDisclaimer p {
+    text-align: left !important;                      /* Alignement à gauche */
+    font-size: 100% !important;                       /* Taille normale */
+    text-shadow: -1px 1px 12px var(--text-color);    /* Ombre portée pour lisibilité */
+}
+
+/* Ajoute un message de pied de page personnalisé à la page de connexion */
+#loginPage::after {
+  content: var(--footer-message, "");     /* Contenu depuis la variable CSS */
+  display: block;                         /* Affichage en bloc */
+  text-align: center;                     /* Texte centré */
+  font-size: 1em;                         /* Taille normale */
+  color: #fff;                            /* Texte blanc */
+  opacity: 0.5;                           /* Texte subtil à 50% d'opacité */
+  text-shadow: -1px 1px 5px black;       /* Ombre portée noire */
+  margin-top: 1em;                        /* Marge en haut */
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ PERSONNALISATIONS DU FORMULAIRE DE CONNEXION MANUELLE ~~~~~~~~~~~~~~~~~~~~ */
+/* Styles spécifiques aux champs et boutons du formulaire de connexion manuelle (nom d'utilisateur/mot de passe) */
+
+/* Masque le texte original des labels et boutons pour les remplacer par des pseudo-éléments ::after */
+#loginPage .checkboxLabel,
+#loginPage button.emby-button[type="submit"] span,
+#loginPage button.emby-button[type="button"].btnCancel span,
+#loginPage button.emby-button[type="button"].btnQuick span {
+  font-size: 0;                           /* Taille de police à zéro = invisible */
+}
+
+/* Style des labels des champs de saisie (ex: "Utilisateur", "Mot de passe") */
+#loginPage .inputLabel {
+    color: var(--primary-accent-color);   /* Couleur d'accent */
+    font-weight: bolder;                  /* Texte très gras */
+}
+
+/* Texte personnalisé pour le label de la checkbox "Se souvenir de moi" */
+#loginPage .checkboxLabel::after {
+  content: "Anti-amnésie de mot de passe ! 📝";  /* Texte personnalisé humoristique */
+  font-size: 15px !important;                     /* Taille de police réelle */
+  font-family: inherit;                           /* Hérite de la police */
+  color: #fff;                                    /* Texte blanc */
+}
+
+/* Style des champs de saisie du formulaire de connexion manuelle */
+#loginPage .emby-input {
+  color: var(--primary-accent-color);     /* Couleur du texte saisi */
+  transition: all 0.3s ease-in-out;       /* Transitions fluides */
+  border-radius: 5px;                     /* Coins arrondis */
+  padding: 12px;                          /* Espacement interne */
+  background-color: #fff;                 /* Fond blanc pour les champs */
+  border: 1px solid #ddd;                 /* Bordure gris clair */
+}
+
+/* Effet de survol pour le conteneur de la checkbox "Se souvenir de moi" */
+#loginPage .checkboxContainer:hover {
+  color: var(--primary-accent-color) !important;  /* Change la couleur du label au survol */
+}
+
+/* Texte personnalisé et style pour le bouton "Se connecter" (submit) */
+#loginPage button.emby-button[type="submit"] span::after {
+  content: "Entre dans la Matrice ! 🌀" !important;  /* Texte personnalisé Matrix */
+  font-size: 16px !important;                         /* Taille de police */
+  font-family: inherit;                               /* Hérite de la police */
+}
+#loginPage button.emby-button[type="submit"] {
+  background-color: #28a745a8 !important;   /* Vert semi-transparent */
+  color: var(--text-color) !important;      /* Couleur du texte */
+}
+#loginPage button.emby-button[type="submit"]:hover {
+  background-color: #28a745 !important;     /* Vert opaque au survol */
+  color: white !important;                  /* Texte blanc au survol */
+  transition: background-color 0.3s ease, transform 0.3s ease;  /* Transitions fluides */
+  transform: scale(1.05);                   /* Léger effet de zoom */
+}
+
+/* Texte personnalisé et style pour le bouton "Annuler" */
+#loginPage button.emby-button[type="button"].btnCancel span::after {
+  content: "Annuler la mission ! ☠️" !important;  /* Texte personnalisé dramatique */
+  font-size: 16px !important;                     /* Taille de police */
+  font-family: inherit;                           /* Hérite de la police */
+}
+#loginPage button.emby-button[type="button"].btnCancel {
+  background-color: #dc3545a8 !important;   /* Rouge semi-transparent */
+  color: var(--text-color) !important;      /* Couleur du texte */
+}
+#loginPage button.emby-button[type="button"].btnCancel:hover {
+  background-color: #dc3545 !important;     /* Rouge opaque au survol */
+  color: white !important;                  /* Texte blanc au survol */
+  transition: background-color 0.3s ease, transform 0.3s ease;  /* Transitions fluides */
+  transform: scale(1.05);                   /* Léger effet de zoom */
+}
+
+/* Texte personnalisé et style pour le bouton "Quick Connect" */
+#loginPage button.emby-button[type="button"].btnQuick span::after {
+  content: "Connexion Rapide 🔗" !important;  /* Texte personnalisé */
+  font-size: 16px !important;                 /* Taille de police */
+  font-family: inherit;                       /* Hérite de la police */
+  color: var(--text-color) !important;        /* Couleur du texte */
+}
+#loginPage button.emby-button[type="button"].btnQuick {
+  background-color: var(--primary-accent-color) !important;  /* Utilise la couleur d'accent du thème */
+}
+
+#loginPage button.emby-button[type="button"].btnQuick:hover {
+  background-color: var(--secondary-accent-color) !important;  /* Couleur secondaire au survol */
+  color: white !important;                                     /* Texte blanc au survol */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transitions fluides */
+  transform: scale(1.05);                                      /* Léger effet de zoom */
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ FORMULAIRE DE CONNEXION MANUELLE - Afficher l'image utilisateur et masquer le nom ~~~~~~~~~~~~~~~~~~~~ */
+/* fonctionne uniquement avec un JavaScript personnalisé qui définit l'image utilisateur dans le conteneur et masque le nom */
+
+/* Style pour le conteneur de l'image */
+#userProfileImageContainer {
+    text-align: center;               /* Centré */
+}
+
+/* Style pour l'image elle-même */
+#userProfileImageContainer img {
+    width: 125px;                     /* Largeur de l'image */
+    height: 125px;                    /* Hauteur de l'image */
+    border-radius: 50%;               /* Image circulaire */
+    object-fit: cover;                /* Image couvre le conteneur sans déformation */
+    border: 1px solid var(--secondary-accent-color);  /* Bordure colorée */
+}
+
+
+/* ~~~~~~~~~~~~~~~~~~~~ STYLE RESPONSIVE (MAX-WIDTH: 600px) ~~~~~~~~~~~~~~~~~~~~ */
+@media (max-width: 600px) {
+  /* Ajuste la largeur du formulaire et des conteneurs pour les petits écrans */
+  #loginPage .readOnlyContent,
+  #loginPage form {
+      max-width: 90% !important;      /* Largeur maximale de 90% sur mobile */
+  }
+  #loginPage .padded-left.padded-right.padded-bottom-page {
+      width: 95% !important;          /* Largeur de 95% pour la boîte */
+      padding: 1em !important;        /* Réduit l'espacement sur petits écrans */
+  }
+
+  /* Centre les cartes utilisateur sur les petits écrans */
+  #loginPage .users .itemsContainer {
+    justify-content: center !important;  /* Centrage */
+  }
+
+  /* Ajuste la taille et marge des cartes utilisateur pour une meilleure disposition sur petits écrans */
+  #loginPage .squareCard {
+    width: 30% !important;            /* Largeur réduite pour les cartes */
+    margin: 1% !important;            /* Petite marge autour des cartes */
+  }
+
+  /* Ajuste la taille du logo sur petits écrans */
+  #loginPage h1::before {
+      height: 60px;                   /* Hauteur réduite pour le logo */
+  }
+}
